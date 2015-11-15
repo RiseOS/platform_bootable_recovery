@@ -156,7 +156,6 @@ ifeq ($(TW_OEM_BUILD),true)
     LOCAL_CFLAGS += -DTW_OEM_BUILD
     BOARD_HAS_NO_REAL_SDCARD := true
     TW_USE_TOOLBOX := true
-    TW_EXCLUDE_SUPERSU := true
     TW_EXCLUDE_MTP := true
 endif
 
@@ -425,18 +424,6 @@ ifeq ($(BOARD_HAS_NO_REAL_SDCARD),)
 endif
 ifneq ($(TW_EXCLUDE_ENCRYPTED_BACKUPS), true)
     LOCAL_ADDITIONAL_DEPENDENCIES += openaes openaes_license
-endif
-ifneq ($(TW_EXCLUDE_SUPERSU), true)
-    LOCAL_ADDITIONAL_DEPENDENCIES += \
-        install-recovery.sh 99SuperSUDaemon Superuser.apk
-    ifeq ($(TARGET_ARCH), arm)
-        LOCAL_ADDITIONAL_DEPENDENCIES += \
-            chattr.pie libsupol.so suarm supolicy
-    endif
-    ifeq ($(TARGET_ARCH), arm64)
-        LOCAL_ADDITIONAL_DEPENDENCIES += \
-            libsupol.soarm64 suarm64 supolicyarm64
-    endif
 endif
 ifeq ($(TW_INCLUDE_FB2PNG), true)
     LOCAL_ADDITIONAL_DEPENDENCIES += fb2png
